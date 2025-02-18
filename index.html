@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Farmácia Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Modal de Cadastro -->
+        <div class="modal" id="modalCadastro">
+            <div class="modal-content">
+                <h2>Cadastre-se e ganhe descontos!</h2>
+                <form id="formCadastro">
+                    <input name="nome" id="nome" placeholder="Nome" required />
+                    <input name="email" type="email" id="email" placeholder="E-mail" required />
+                    <input name="telefone" id="telefone" placeholder="Telefone" required />
+                    <input name="idade" type="number" id="idade" placeholder="Idade" required />
+                    <input name="genero" id="genero" placeholder="Gênero" required />
+                    <input name="cep" id="cep" placeholder="CEP" required />
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Cabeçalho -->
+        <header>
+            <h1>Farmácia Online</h1>
+        </header>
+
+        <!-- Seção de Produtos -->
+        <main>
+            <p>Confira nossos produtos abaixo:</p>
+            <ul id="listaProdutos">
+                <li class="produto">
+                    <h3>Remédio A</h3>
+                    <p>Preço: R$ 30,00</p>
+                </li>
+                <li class="produto">
+                    <h3>Remédio B</h3>
+                    <p>Preço: R$ 25,00</p>
+                </li>
+                <li class="produto">
+                    <h3>Remédio C</h3>
+                    <p>Preço: R$ 50,00</p>
+                </li>
+            </ul>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.29.0/dist/supabase.min.js"></script>
+    <script>
+        // Configurar o Supabase
+        const supabaseUrl = 'https://ndyeusyrtxzctwtngdnq.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5keWV1c3lydHh6Y3R3dG5nZG5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk4OTE1NjIsImV4cCI6MjA1NTQ2NzU2Mn0.TQd81_2bg8sBWFNe0QkBUBbmdPrRpPM5qMXOgPX8YWE';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Função para abrir o modal de cadastro
+        window.onload = function() {
+            const modalCadastro = document.getElementById("modalCadastro");
+            modalCadastro.style.display = "flex";  // Mostrar o modal
+
+            const form = document.getElementById("formCadastro");
+            form.addEventListener("submit", async function(e) {
+                e.preventDefault();  // Previne o comportamento padrão do formulário
+
+                // Capturar os dados do formulário
+                const nome = document.getElementById("nome").value;
+                const email = document.getElementById("email").value;
+                const telefone = document.getElementById("telefone").value;
+                const idade = document.getElementById("idade").value;
+                const genero = document.getElementById("genero").value;
+                const cep = document.getElementById("cep").value;
+
+                console.log("Enviando dados para o Supabase...");
+                // Inserir no banco de dados Supabase
+                const { data, error } = await supabase
+                    .from('clientes')
+                    .insert([
+                        { nome, email, telefone, idade, genero, cep }
+                    ]);
+
+                if (error) {
+                    console.error("Erro no cadastro:", error);
+                    alert("Erro ao cadastrar. Tente novamente.");
+                } else {
+                    console.log("Cadastro realizado com sucesso!", data);
+                    alert("Cadastro realizado com sucesso!");
+                    modalCadastro.style.display = "none";  // Fechar o modal após cadastro
+                    document.body.style.overflow = "auto";  // Permitir a rolagem da página
+                    showProducts();  // Chama a função para mostrar os produtos
+                }
+            });
+        };
+
+        // Função para exibir os produtos
+        function showProducts() {
+            const listaProdutos = document.getElementById("listaProdutos");
+            listaProdutos.innerHTML = `
+                <li class="produto">
+                    <h3>Remédio A</h3>
+                    <p>Preço: R$ 30,00</p>
+                </li>
+                <li class="produto">
+                    <h3>Remédio B</h3>
+                    <p>Preço: R$ 25,00</p>
+                </li>
+                <li class="produto">
+                    <h3>Remédio C</h3>
+                    <p>Preço: R$ 50,00</p>
+                </li>
+            `;
+        }
+    </script>
+</body>
+</html>
