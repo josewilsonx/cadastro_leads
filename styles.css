@@ -1,4 +1,4 @@
-/* Container principal */
+
 .container {
     background-color: #f8d7da;
     min-height: 100vh;
@@ -9,7 +9,6 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* Modal */
 .modal {
     position: fixed;
     top: 0;
@@ -23,7 +22,7 @@
     z-index: 9999; /* Modal em cima de tudo */
 }
 
-/* Conteúdo do Modal */
+
 .modal-content {
     background: #ffffff;
     padding: 30px;
@@ -35,12 +34,10 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* Animação suave no modal */
 .modal-content.show {
     transform: scale(1.05);
 }
 
-/* Inputs e botões */
 input, button {
     display: block;
     width: 100%;
@@ -51,7 +48,6 @@ input, button {
     font-size: 16px;
 }
 
-/* Estilo do botão */
 button {
     background-color: #dc3545;
     color: white;
@@ -60,18 +56,18 @@ button {
     transition: background-color 0.3s ease;
 }
 
-/* Efeito no hover do botão */
+
 button:hover {
     background-color: #c82333;
 }
 
-/* Botão desabilitado */
+
 button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
 }
 
-/* Estilo dos inputs */
+
 input {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
