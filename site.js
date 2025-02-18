@@ -2,7 +2,6 @@ import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "styles.css";
 
-// Conexão com Supabase
 const supabase = createClient(
   "https://ndyeusyrtxzctwtngdnq.supabase.co", 
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5keWV1c3lydHh6Y3R3dG5nZG5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk4OTE1NjIsImV4cCI6MjA1NTQ2NzU2Mn0.TQd81_2bg8sBWFNe0QkBUBbmdPrRpPM5qMXOgPX8YWE"
